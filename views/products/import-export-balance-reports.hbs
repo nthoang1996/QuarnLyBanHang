@@ -1,0 +1,93 @@
+<div class="row custom-header">
+    <div class="col-12 d-flex justify-content-center">
+        <h1>BÁO CÁO CÂN ĐỐI NHẬP XUẤT TỒN</h1>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-lg-3 d-sm-none">
+
+    </div>
+    <div class="col-lg-2 col-sm-4">
+        <h5>Thời khoảng:</h5>
+    </div>
+    <div class="col-lg-7 col-sm-8">
+        <h5>{{this.params.startDate}}->{{this.params.endDate}}</h5>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-3 d-sm-none">
+
+    </div>
+    <div class="col-lg-2 col-sm-4">
+        <h5>Cửa hàng - kho:</h5>
+    </div>
+    <div class="col-lg-7 col-sm-8">
+        <h5>{{this.params.store_name}}</h5>
+    </div>
+</div>
+
+{{#if this.parseResult}}
+<div class="row mt-3 overflow-auto">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col" colspan="5" class="text-center">Hàng hóa</th>
+                <th scope="col" colspan="2" class="text-center">Tồn đầu kỳ</th>
+                <th scope="col" colspan="2" class="text-center">Nhập trong kỳ</th>
+                <th scope="col" colspan="2" class="text-center">Xuất trong kỳ</th>
+                <th scope="col" colspan="2" class="text-center">Cuối kỳ</th>
+            </tr>
+            <tr>
+                <th scope="col" width="7%" class="text-center">Ngành hàng</th>
+                <th scope="col" width="7%" class="text-center">Nhóm hàng</th>
+                <th scope="col" width="11%" class="text-center">Mã hàng</th>
+                <th scope="col" width="22%" class="text-center">Tên hàng</th>
+                <th scope="col" width="5%" class="text-center">ĐVT</th>
+                <th scope="col" width="6%" class="text-center">Số lượng</th>
+                <th scope="col" width="6%" class="text-center">Giá trị</th>
+                <th scope="col" width="6%" class="text-center">Số lượng</th>
+                <th scope="col" width="6%" class="text-center">Giá trị</th>
+                <th scope="col" width="6%" class="text-center">Số lượng</th>
+                <th scope="col" width="6%" class="text-center">Giá trị</th>
+                <th scope="col" width="6%" class="text-center">Số lượng</th>
+                <th scope="col" width="6%" class="text-center">Giá trị</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each this.parseResult.result}}
+            <tr class="text-smd" scope="row">
+                <td scope="col" class="text-left">{{GROUP_NAME}}</td>
+                <td scope="col" class="text-left">{{DEPT_NAME}}</td>
+                <td scope="col" class="text-left">{{ITEM_ID}}</td>
+                <td scope="col" class="text-left">{{ITEM_NAME}}</td>
+                <td scope="col" class="text-left">{{ITEM_UOM}}</td>
+                <td scope="col" class="text-right">{{QTY_BG}}</td>
+                <td scope="col" class="text-right">{{format GIA_BG}}</td>
+                <td scope="col" class="text-right">{{QTY_N}}</td>
+                <td scope="col" class="text-right">{{format GIA_N}}</td>
+                <td scope="col" class="text-right">{{QTY_X}}</td>
+                <td scope="col" class="text-right">{{format GIA_X}}</td>
+                <td scope="col" class="text-right">{{QTY}}</td>
+                <td scope="col" class="text-right">{{format VALUE}}</td>
+            </tr>
+            {{/each}}
+            <tr scope="row" class="text-smd">
+                <td scope="col" colspan="5" class="text-center font-weight-bold"></td>
+                <td scope="col" class="text-right font-weight-bold">{{this.parseResult.metadata.totalQTY_BG}}</td>
+                <td scope="col" class="text-right font-weight-bold">{{format this.parseResult.metadata.totalGIA_BG}}</td>
+                <td scope="col" class="text-right font-weight-bold">{{this.parseResult.metadata.totalQTY_N}}</td>
+                <td scope="col" class="text-right font-weight-bold">{{format this.parseResult.metadata.totalGIA_N}}</td>
+                <td scope="col" class="text-right font-weight-bold">{{this.parseResult.metadata.totalQTY_X}}</td>
+                <td scope="col" class="text-right font-weight-bold">{{format this.parseResult.metadata.totalGIA_X}}</td>
+                <td scope="col" class="text-right font-weight-bold">{{this.parseResult.metadata.totalQTY}}</td>
+                <td scope="col" class="text-right font-weight-bold">{{format this.parseResult.metadata.totalVALUE}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{{else}}
+<div class="mt-3 d-flex justify-content-center w-100">
+    <h5>Không có dữ liệu</h5>
+</div>
+{{/if}}
