@@ -1,0 +1,67 @@
+.bg-grey {
+    background-color: #c1d7d7;
+}
+
+.text-blue {
+    color: #0000b3;
+}
+
+.time-input {
+    font-size: 20px;
+}
+
+.custom-checkbox {
+    width: 20px;
+    height: 20px;
+}
+
+.width-60 {
+    width: 60% !important;
+}
+
+.custom-header {
+    border-bottom: 3px double black;
+}
+
+.custom-form-body {
+    border: 1px solid grey;
+    border-radius: 15px;
+    padding: 40px;
+    background-color: #fff;
+}
+
+body {
+    background-color: #eff5f5 !important;
+}
+
+.custom-container {
+    width: calc(100vw - 200px);
+    margin: auto;
+}
+
+.d-sm-none{
+    display: inline-block;
+}
+
+@media(max-width: 568px){
+    .custom-container {
+        width: calc(100vw - 10px);
+        margin: auto;
+    }
+
+    .d-sm-none{
+        display: none;
+    }
+}
+
+.text-smd{
+    font-size: 16px;
+}
+
+.heigh-normal{
+    min-height: 44px !important;
+}
+
+.overflow-auto{
+    overflow: auto;
+}
