@@ -18,35 +18,63 @@
   </div>
 </div>
 
+<div class="row mt-2">
+    <div class="col-sm-12 col-lg-2">
+      <label class="mr-sm-2" for="inlineFormCustomSelect"><b>Ngành hàng</b></label>
+    </div>
+    <div class="col-sm-12 col-lg-6">
+      <select class="custom-select mr-sm-2 heigh-normal" name="industry" id="industry">
+        <option value="ALL" selected>Tất cả ngành hàng</option>
+        {{#each industries}}
+        <option value="{{ID}}">{{NAME}}</option>
+        {{/each}}
+      </select>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-sm-12 col-lg-2">
+      <label class="mr-sm-2" for="inlineFormCustomSelect"><b>Nhóm hàng</b></label>
+    </div>
+    <div class="col-sm-12 col-lg-6">
+      <select class="custom-select mr-sm-2 heigh-normal" name="group" id="group">
+        <option value="ALL" selected>Tất cả nhóm hàng</option>
+        {{#each groups}}
+        <option value="{{ID}}">{{NAME}}</option>
+        {{/each}}
+      </select>
+    </div>
+  </div>
+
 <script>
   function validate() {
-        const store = $('#store').val();
-        const startDate = $('#startDate').val();
-        const endDate = $('#endDate').val();
+    const store = $('#store').val();
+    const startDate = $('#startDate').val();
+    const endDate = $('#endDate').val();
 
-        if (!store.length) {
-          Swal.fire('Lỗi', 'Vui lòng chọn tên cửa hàng', 'error');
-          return false;
-        }
+    if (!store.length) {
+      Swal.fire('Lỗi', 'Vui lòng chọn tên cửa hàng', 'error');
+      return false;
+    }
 
-        if (!startDate.length) {
-          Swal.fire('Lỗi', 'Vui lòng chọn ngày bắt đầu', 'error');
-          return false;
-        }
+    if (!startDate.length) {
+      Swal.fire('Lỗi', 'Vui lòng chọn ngày bắt đầu', 'error');
+      return false;
+    }
 
-        if (!endDate.length) {
-          Swal.fire('Lỗi', 'Vui lòng chọn ngày kết thúc', 'error');
-          return false;
-        }
+    if (!endDate.length) {
+      Swal.fire('Lỗi', 'Vui lòng chọn ngày kết thúc', 'error');
+      return false;
+    }
 
-        const a = moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD');
-        const b = moment(endDate, 'DD/MM/YYYY').format('YYYY-MM-DD');
-        
-        if (moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD').localeCompare(moment(endDate, 'DD/MM/YYYY').format('YYYY-MM-DD')) >= 0) {
-          Swal.fire('Lỗi', 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc', 'error');
-          return false
-        }
+    const a = moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD');
+    const b = moment(endDate, 'DD/MM/YYYY').format('YYYY-MM-DD');
 
-        return true;
-      }
+    if (moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD').localeCompare(moment(endDate, 'DD/MM/YYYY').format('YYYY-MM-DD')) >= 0) {
+      Swal.fire('Lỗi', 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc', 'error');
+      return false
+    }
+
+    return true;
+  }
 </script>

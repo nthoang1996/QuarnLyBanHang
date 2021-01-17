@@ -32,7 +32,7 @@ app.engine(
         for (var i = startYear; i < endYear; ++i) accum += block.fn(i);
         return accum;
       },
-      format: (val) => numeral(val).format("0,0") + " ₫",
+      format: (val) => numeral(val).format("0,0"),
       inc: (value) => parseInt(value)+ 1
     },
   })

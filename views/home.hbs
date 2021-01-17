@@ -70,7 +70,7 @@
         const a = moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD');
         const b = moment(endDate, 'DD/MM/YYYY').format('YYYY-MM-DD');
         
-        if (moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD').localeCompare(moment(endDate, 'DD/MM/YYYY').format('YYYY-MM-DD')) >= 0) {
+        if (moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD').localeCompare(moment(endDate, 'DD/MM/YYYY').format('YYYY-MM-DD')) > 0) {
           Swal.fire('Lỗi', 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc', 'error');
           return false
         }

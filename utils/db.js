@@ -1,14 +1,13 @@
-const mssql = require("mssql/msnodesqlv8");
+const mssql = require("mssql");
 
 const config = {
-//   user: "TestUser",
-//   password: "123456",
-  server: "localhost\\MSSQLSERVER01", // You can use 'localhost\\instance' to connect to named instance
-  database: "TPVPOS_S_NEW",
-  driver: 'msnodesqlv8',
+  user: "TPV",
+  password: "TPVSOFTWARE357",
+  server: "113.160.226.159", // You can use 'localhost\\instance' to connect to named instance
+  database: "TPVPOS_S",
   options: {
     encrypt: false,
-    trustedConnection: true
+    enableArithAbort: true
   },
   port : 1433
 };

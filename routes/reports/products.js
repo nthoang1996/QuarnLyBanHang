@@ -238,6 +238,19 @@ router.post("/import-export-balance-reports", async (req, res) => {
   //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
   const params = req.body;
   const stores = await storeModels.all();
+  const industries = await industryModels.all();
+  const groups = await groupModels.all();
+  const industrySelected = industries.find((obj) => obj.ID === params.industry);
+  params.industry_name = "Tất cả ngành hàng";
+  if (industrySelected) {
+    params.industry_name = industrySelected.NAME;
+  }
+
+  const groupSelected = groups.find((obj) => obj.ID === params.group);
+  params.group_name = "Tất cả nhóm hàng";
+  if (groupSelected) {
+    params.group_name = groupSelected.NAME;
+  }
   const productResult = await productModels.sp_CanDoiNXT(params);
 
   const storeSelected = stores.find((obj) => obj.ID === params.store);

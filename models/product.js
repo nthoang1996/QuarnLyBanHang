@@ -1,5 +1,5 @@
 const db = require('../utils/db');
-const mssql = require("mssql/msnodesqlv8");
+const mssql = require("mssql");
 const moment = require('moment')
 
 module.exports = {
@@ -139,6 +139,16 @@ module.exports = {
                 type: mssql.VarChar(10),
                 value: input.store
             },
+            {
+                name: 'GROUP_ID',
+                type: mssql.VarChar(50),
+                value: input.industry
+            },
+            {
+                name: 'DEPT_ID',
+                type: mssql.VarChar(50),
+                value: input.group
+            }
         ]
        return db.call_procedure('sp_CanDoiNXT', params)
     },

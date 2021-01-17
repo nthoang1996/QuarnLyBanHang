@@ -1,5 +1,5 @@
 const db = require('../utils/db');
-const mssql = require("mssql/msnodesqlv8");
+const mssql = require("mssql");
 const moment = require('moment')
 
 module.exports = {
