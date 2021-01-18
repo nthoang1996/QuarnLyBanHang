@@ -251,7 +251,15 @@ router.post("/import-export-balance-reports", async (req, res) => {
   if (groupSelected) {
     params.group_name = groupSelected.NAME;
   }
-  const productResult = await productModels.sp_CanDoiNXT(params);
+  let productResult = await productModels.sp_CanDoiNXT(params);
+
+  if(params.industry !== "ALL"){
+    productResult = productResult.filter(obj => obj.GROUP_ID === params.industry);
+  }
+
+  if(params.group !== "ALL"){
+    productResult = productResult.filter(obj => obj.DEPT_ID === params.group);
+  }
 
   const storeSelected = stores.find((obj) => obj.ID === params.store);
   params.store_name = "Tất cả cửa hàng";
@@ -351,12 +359,7 @@ router.post("/warehouse-card-report", async (req, res) => {
     productResult,
     "QTY_OUT"
   );
-  parseResult.metadata.totalQTY = productUtils.sumTotal(
-    productResult,
-    "QTY"
-  );
-
-  console.log(parseResult);
+  parseResult.metadata.totalQTY = parseResult.metadata.totalQTY_IN - parseResult.metadata.totalQTY_OUT;
 
   parseResult.metadata.finalValue = parseResult.metadata.totalTHANHTIEN - 0;
   if (parseResult.result.length > 0) {
