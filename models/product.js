@@ -144,7 +144,6 @@ module.exports = {
     },
 
     sp_TheKho:(input) =>  {
-        console.log(input);
         let params = [
             {
                 name: 'TuNgay',
@@ -168,5 +167,26 @@ module.exports = {
             },
         ]
        return db.call_procedure('sp_TheKho', params)
+    },
+
+    tinhTonKhoDauKy:(input) =>  {
+        let params = [
+            {
+                name: 'TuNgay',
+                type: mssql.Date,
+                value: moment(input.startDate, 'DD/MM/YYYY').format('YYYY-MM-DD'),
+            },
+            {
+                name: 'LOC_ID',
+                type: mssql.VarChar(10),
+                value: input.store
+            },
+            {
+                name: 'ITEM_ID',
+                type: mssql.VarChar(50),
+                value: input.merchandise
+            },
+        ]
+       return db.call_procedure('TinhTonKhoDauKy', params)
     },
 }

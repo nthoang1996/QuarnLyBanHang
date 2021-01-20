@@ -23,12 +23,7 @@
     <label class="mr-sm-2" for="inlineFormCustomSelect"><b>Mã hàng</b></label>
   </div>
   <div class="col-sm-12 col-lg-6">
-    <select class="custom-select mr-sm-2 heigh-normal" name="merchandise" id="industry">
-      <option value="ALL" selected>Tất cả hàng hóa</option>
-      {{#each merchandises}}
-      <option value="{{ID}}">{{ID}}</option>
-      {{/each}}
-    </select>
+    <input type="text" class="heigh-normal input-group custom-input" name="merchandise" id="merchandise"/>
   </div>
 </div>
 
@@ -37,9 +32,15 @@
         const store = $('#store').val();
         const startDate = $('#startDate').val();
         const endDate = $('#endDate').val();
+        const merchandise = $('#merchandise').val();
 
         if (!store.length) {
           Swal.fire('Lỗi', 'Vui lòng chọn tên cửa hàng', 'error');
+          return false;
+        }
+
+        if(!merchandise.length){
+          Swal.fire('Lỗi', 'Vui lòng nhập mã hàng', 'error');
           return false;
         }
 

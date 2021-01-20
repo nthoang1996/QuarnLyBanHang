@@ -65,3 +65,9 @@ body {
 .overflow-auto{
     overflow: auto;
 }
+
+.custom-input {
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    padding-left: 15px;
+}
