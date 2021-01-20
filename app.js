@@ -33,7 +33,8 @@ app.engine(
         return accum;
       },
       format: (val) => numeral(val).format("0,0"),
-      inc: (value) => parseInt(value)+ 1
+      inc: (value) => parseInt(value)+ 1,
+      json: data => JSON.stringify(data),
     },
   })
 );

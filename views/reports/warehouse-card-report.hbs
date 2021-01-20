@@ -28,6 +28,14 @@
 </div>
 
 <script>
+ $(function() {
+  const merchandisesArray = {{{json merchandises}}};
+  const arrMerr= merchandisesArray.map(element => element.ID);
+
+    $("#merchandise").autocomplete({
+      source: arrMerr
+    });
+  });
   function validate() {
         const store = $('#store').val();
         const startDate = $('#startDate').val();

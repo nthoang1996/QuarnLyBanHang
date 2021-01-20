@@ -323,7 +323,6 @@ router.post("/import-export-balance-reports", async (req, res) => {
 router.get("/warehouse-card-report", async (req, res) => {
   const stores = await storeModels.all();
   const merchandises = await merchandiseModels.all();
-  console.log(merchandises);
 
   res.render("reports/warehouse-card-report", {
     layout: "main",
@@ -362,19 +361,18 @@ router.post("/warehouse-card-report", async (req, res) => {
   );
   let inventoryBegin = await productModels.tinhTonKhoDauKy(params);
   parseResult.metadata.inventoryBegin  = inventoryBegin[0].SOLUONG;
+  console.log(parseResult, inventoryBegin);
   parseResult.metadata.totalQTY = parseResult.metadata.totalQTY_IN + parseResult.metadata.inventoryBegin - parseResult.metadata.totalQTY_OUT;
 
   parseResult.metadata.finalValue = parseResult.metadata.totalTHANHTIEN;
 
-  if (parseResult.result.length > 0) {
+
     res.render("products/warehouse-card-report", {
       layout: "report",
       params,
       parseResult,
     });
-  } else {
-    res.render("products/warehouse-card-report", { layout: "report", params });
-  }
+
 });
 
 module.exports = router;
