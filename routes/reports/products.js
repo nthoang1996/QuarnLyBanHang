@@ -9,9 +9,10 @@ const employeeModels = require("../../models/employee");
 const merchandiseModels = require("../../models/merchandise");
 const productUtils = require("../../utils/products");
 const promotionUtils = require("../../utils/promotion");
+const restrict = require('../../middlewares/author.mdw');
 const moment = require("moment")
 
-router.get("/retail-sales", async (req, res) => {
+router.get("/retail-sales", restrict, async (req, res) => {
   const stores = await storeModels.all();
   const industries = await industryModels.all();
   const groups = await groupModels.all();
@@ -24,7 +25,7 @@ router.get("/retail-sales", async (req, res) => {
   });
 });
 
-router.post("/retail-sales", async (req, res) => {
+router.post("/retail-sales",restrict, async (req, res) => {
   //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
   const params = req.body;
   const stores = await storeModels.all();
@@ -77,7 +78,7 @@ router.post("/retail-sales", async (req, res) => {
   }
 });
 
-router.get("/report-sales-according-to-the-cashier", async (req, res) => {
+router.get("/report-sales-according-to-the-cashier",restrict, async (req, res) => {
   const stores = await storeModels.all();
   const employees = await employeeModels.all();
 
@@ -88,7 +89,7 @@ router.get("/report-sales-according-to-the-cashier", async (req, res) => {
   });
 });
 
-router.post("/report-sales-according-to-the-cashier", async (req, res) => {
+router.post("/report-sales-according-to-the-cashier",restrict, async (req, res) => {
   //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
   const params = req.body;
   const stores = await storeModels.all();
@@ -179,7 +180,7 @@ router.get("/report-general-sales", async (req, res) => {
   });
 });
 
-router.post("/report-general-sales", async (req, res) => {
+router.post("/report-general-sales",restrict, async (req, res) => {
   //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
   const params = req.body;
   const stores = await storeModels.all();
@@ -221,7 +222,7 @@ router.post("/report-general-sales", async (req, res) => {
   }
 });
 
-router.get("/import-export-balance-reports", async (req, res) => {
+router.get("/import-export-balance-reports",restrict, async (req, res) => {
   const stores = await storeModels.all();
   const industries = await industryModels.all();
   const groups = await groupModels.all();
@@ -234,7 +235,7 @@ router.get("/import-export-balance-reports", async (req, res) => {
   });
 });
 
-router.post("/import-export-balance-reports", async (req, res) => {
+router.post("/import-export-balance-reports",restrict, async (req, res) => {
   //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
   const params = req.body;
   const stores = await storeModels.all();

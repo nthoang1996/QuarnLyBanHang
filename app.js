@@ -10,10 +10,13 @@ const industryModels = require("./models/industry");
 const groupModels = require("./models/group");
 const productModels = require("./models/product");
 const promotionModels = require("./models/promotion");
+const userModels = require('./models/user')
 const productUtils = require("./utils/products");
 const promotionUtils = require("./utils/promotion");
+const userUtils = require("./utils/users");
 const numeral = require("numeral");
 const restrict = require("./middlewares/auth.mdw");
+const restrictAuthor = require('./middlewares/author.mdw');
 //Sets our app to use the handlebars engine
 //instead of app.set('view engine', 'handlebars');
 app.set("view engine", "hbs");
@@ -53,7 +56,7 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 require("./middlewares/locals.mdw")(app);
 require('./middlewares/routes.mdw')(app);
 
-app.get("/", restrict, async (req, res) => {
+app.get("/", restrict, restrictAuthor, async (req, res) => {
   //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
   const stores = await storeModels.all();
   const industries = await industryModels.all();
@@ -62,7 +65,7 @@ app.get("/", restrict, async (req, res) => {
   res.render("home", { layout: "main", stores, industries, groups });
 });
 
-app.post("/", restrict, async (req, res) => {
+app.post("/", restrict, restrictAuthor, async (req, res) => {
   //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
   const params = req.body;
   const stores = await storeModels.all();
@@ -119,22 +122,32 @@ app.get("/login", (req, res) => {
 app.get("/sign_out", (req, res) => {
   //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
   req.session.isAuthenticated = false;
+  req.session.fullPermission = false;
+  req.session.authUser =null;
   res.redirect("/login");
 });
 
-app.post("/login", (req, res) => {
+app.post("/login", async(req, res) => {
   //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
   const { login, password } = req.body;
   let errorMsg = "";
-  if (login !== "admin") {
+  if(login === "NV" && password === "1"){
+    req.session.isAuthenticated = true;
+    req.session.authUser = {NAME: "Nhân viên"};
+    return res.redirect('/reports/products/warehouse-card-report')
+  }
+  const user = await userModels.getByUsername(login);
+  if (user.length === 0) {
     errorMsg = "Tài khoản không tồn tại";
     return res.render("login", { layout: false, error: errorMsg });
   }
-  if (password !== "1") {
+  if (!userUtils.comparePassword(password, user[0].PASSWORD)) {
     errorMsg = "Sai mật khẩu";
     return res.render("login", { layout: false, error: errorMsg });
   }
   req.session.isAuthenticated = true;
+  req.session.fullPermission = true;
+  req.session.authUser = user[0];
   const url = req.query.retUrl || '/';
   return res.redirect(url);
 });
